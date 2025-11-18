@@ -1,9 +1,5 @@
-from src.masks import get_mask_account, get_mask_card_number
+from src.widget import mask_account_card
 
-help(get_mask_card_number)
-card_number = str(input("Введите номер карты (16 цифр): "))
-print(get_mask_card_number(card_number))
-
-help(get_mask_account)
-number_account = str(input("Введите номер лицевого счета:"))
-print(get_mask_account(number_account))
+help(mask_account_card)
+print(mask_account_card("Счет 13312445665"))
+print(mask_account_card("Visa Platinum 2342342345878799"))

@@ -1,0 +1,29 @@
+import re
+
+from src.masks import get_mask_account, get_mask_card_number
+
+
+def mask_account_card(account_card: str) -> str:
+    """Функция возвращает строку с замаскированным номером карты или счет"""
+    account = ""
+    pattern = "Счет"
+    # match = re.search(pattern, account_card)
+    if re.search(pattern, account_card):
+        for element in account_card:
+            if element.isdigit():
+                account += element
+
+        return "Счет " + get_mask_account(account)
+
+    elif not re.search(pattern, account_card):
+        names_card = ""
+        for element in account_card:
+            if element.isdigit():
+                account += element
+            elif not element.isdigit():
+                names_card += element
+
+        return names_card + get_mask_card_number(account)
+
+    else:
+        return "Информация о счете отсутствует"
