@@ -32,4 +32,4 @@ def mask_account_card(account_card: str) -> str:
 def get_date(date: str) -> str:
     """Функция возвращает дату из принятой строки
     (Формат строки -> "2024-03-11T02:26:18.671407")"""
-    return date[8:10] + '.' + date[5:7] + '.' + date[:4] + ' (ДД.ММ.ГГГГ)'
+    return date[8:10] + "." + date[5:7] + "." + date[:4] + " (ДД.ММ.ГГГГ)"
