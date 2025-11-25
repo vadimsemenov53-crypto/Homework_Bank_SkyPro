@@ -8,3 +8,15 @@ def filter_by_state(data_list: list, state: str = "EXECUTED") -> list:
             filtered_list.append(info)
 
     return filtered_list
+
+
+def sort_by_date(data_list: list, sort: str = 'decreasing') -> list:
+    """Функция сортирует полученные данные по дате
+    принимая список словарей и параметр сортировки,
+    возвращает отсортированный список словарей"""
+    if sort == 'decreasing':
+        sorted_list = sorted(data_list, key=lambda info: info["date"][:10], reverse=True)
+        return sorted_list
+    else:
+        sorted_list = sorted(data_list, key=lambda info: info["date"][:10], reverse=False)
+        return sorted_list
