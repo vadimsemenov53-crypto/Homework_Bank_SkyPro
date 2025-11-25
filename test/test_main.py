@@ -11,4 +11,4 @@ resualt_filter = filter_by_state(info_list, state="CANCELED")
 for element in resualt_filter:
     print(element)
 
-print(sort_by_date(info_list, sort=''))
+print(sort_by_date(info_list, sort=""))
