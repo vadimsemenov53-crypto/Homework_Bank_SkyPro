@@ -19,21 +19,26 @@ def mask_account_card(account_card: str | None = None) -> str:
         return "Счет " + get_mask_account(account)
 
     else:
-        if len(account_card) > 0:
-            names_card = ""
-            for element in account_card:
-                if element.isdigit():
-                    account += element
-                elif not element.isdigit():
-                    names_card += element
+        names_card = ""
+        for element in account_card:
+            if element.isdigit():
+                account += element
+            elif not element.isdigit():
+                names_card += element
 
-            return names_card + get_mask_card_number(account)
-
+        if len(account) == 0:
+            return names_card + ' Номер карты отсутствует'
         else:
-            return "Информация о счете отсутствует"
+            return names_card + get_mask_card_number(account)
 
 
 def get_date(date: str) -> str:
     """Функция возвращает дату из принятой строки
     (Формат строки -> "2024-03-11T02:26:18.671407")"""
+    if not date or len(date) < 10:
+        return 'Информация о дате отсутствует'
+
+    if not (date[0:4].isdigit() and date[5:7].isdigit() and date[8:10].isdigit()):
+        return 'Информация о дате отсутствует'
+
     return date[8:10] + "." + date[5:7] + "." + date[:4]
