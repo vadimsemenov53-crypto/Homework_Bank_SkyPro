@@ -1,6 +1,6 @@
 import pytest
 
-from src.generators import filter_by_currency, transaction_descriptions
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
 
 def test_filter_by_currency_base(generators_data):
     gen = filter_by_currency(generators_data, 'USD')
@@ -122,5 +122,38 @@ def test_transaction_descriptions_empty_list():
     with pytest.raises(StopIteration):
         next(gen)
 
+
+def test_card_number_generator_base():
+    gen = card_number_generator(1, 5)
+    assert next(gen) == '0000 0000 0000 0001'
+    assert next(gen) == '0000 0000 0000 0002'
+    assert next(gen) == '0000 0000 0000 0003'
+    assert next(gen) == '0000 0000 0000 0004'
+    assert next(gen) == '0000 0000 0000 0005'
+    with pytest.raises(StopIteration):
+        next(gen)
+
+
+def test_card_number_generator_another():
+    gen = card_number_generator(77777, 77780)
+    assert next(gen) == '0000 0000 0007 7777'
+    assert next(gen) == '0000 0000 0007 7778'
+    assert next(gen) == '0000 0000 0007 7779'
+    assert next(gen) == '0000 0000 0007 7780'
+    with pytest.raises(StopIteration):
+        next(gen)
+
+
+def test_card_numbers_generator_invalid_parameters():
+    gen = card_number_generator(33, 10)
+    assert next(gen) == f'Заданы неверные параметры start > stop: {33} > {10}'
+    with pytest.raises(StopIteration):
+        next(gen)
+
+
+def test_card_numbers_generator_invalid_parameter():
+    gen = card_number_generator(10, '22')
+    with pytest.raises(TypeError):
+        next(gen)
 
 
