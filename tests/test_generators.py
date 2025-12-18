@@ -157,3 +157,20 @@ def test_card_numbers_generator_invalid_parameter():
         next(gen)
 
 
+def test_card_numbers_generator_extreme_values():
+    gen = card_number_generator(9999999999999997, 9999999999999999)
+    assert next(gen) == "9999 9999 9999 9997"
+    assert next(gen) == "9999 9999 9999 9998"
+    assert next(gen) == "9999 9999 9999 9999"
+    with pytest.raises(StopIteration):
+        next(gen)
+
+
+def test_card_numbers_generator_last_values():
+    gen = card_number_generator(9999999999999999, 10000000000000000)
+    assert next(gen) == "9999 9999 9999 9999"
+    assert next(gen) == "Достигнуто крайнее значение: 9999 9999 9999 9999"
+    with pytest.raises(StopIteration):
+        next(gen)
+
+

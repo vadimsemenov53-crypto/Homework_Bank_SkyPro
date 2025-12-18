@@ -27,5 +27,8 @@ def card_number_generator(start_gen: int, stop_gen: int) -> Generator[str]:
         yield f'Заданы неверные параметры start > stop: {start_gen} > {stop_gen}'
     else:
         for num in range(start_gen, stop_gen+1):
-            card_number = str(num).zfill(16)
-            yield f'{card_number[:4]} {card_number[4:8]} {card_number[8:12]} {card_number[12:]}'
+            if num < 10000000000000000:
+                card_number = str(num).zfill(16)
+                yield f'{card_number[:4]} {card_number[4:8]} {card_number[8:12]} {card_number[12:]}'
+            else:
+                yield 'Достигнуто крайнее значение: 9999 9999 9999 9999'
