@@ -9,6 +9,7 @@ def log(filename: str = "") -> Callable[..., Any]:
         @wraps(func)
         def inner(*args: Any, **kwargs: Any) -> Any:
             start_time = time()
+            result = None
 
             try:
                 result = func(*args, **kwargs)
@@ -43,7 +44,7 @@ def log(filename: str = "") -> Callable[..., Any]:
                 print(func_data)
 
             if flag:
-                return func(*args, **kwargs)
+                return result
             else:
                 raise
 
