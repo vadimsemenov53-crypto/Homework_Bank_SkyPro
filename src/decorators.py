@@ -7,37 +7,48 @@ def log(filename = ''):
         @wraps(func)
         def inner(*args, **kwargs):
             start_time = time()
-            result = func(*args, **kwargs)
-            end_time = time()
 
-            func_data = f'''Функция: {func.__name__}, вызвана с аргументами {args}, и клюевыми аргументами {kwargs}.
-Результат: {result}'''
-            time_work = f'Время работы = {end_time - start_time:.6f}'
+            try:
+                result = func(*args, **kwargs)
+                end_time = time()
+                func_data = f'''Функция: {func.__name__}, вызвана с аргументами {args}, и ключевыми аргументами {kwargs}.
+Результат: {result}
+Время работы = {end_time - start_time:.6f}'''
+                flag = True
+
+            except Exception as error:
+                end_time = time()
+                func_data = f'''Функция: {func.__name__}, вызвана с аргументами {args}, и ключевыми аргументами {kwargs}.
+Тип ошибки: {type(error).__name__}
+Время до ошибки = {end_time - start_time:.6f}'''
+                flag = False
+
 
             if filename:
-                if type(filename) == str:
-                    file_record = filename + '.txt'
-                    print(f'Переданный файл для записи -> {file_record}')
+                if not isinstance(filename, str):
+                    raise TypeError('Имя файла должно быть строкой')
 
-                    with open(file_record, 'a', encoding="utf-8") as file:
-                        file.write(f'{func_data}\n')
-                        file.write(f'{time_work}\n')
-                        file.write(f"{'-' * 80}\n")
-                        return result
+                print(f'Данные записаны в файл -> {filename}')
 
-                else:
-                    raise TypeError('Передан неверный тип данный (отличный от "str")')
+                with open(filename, 'a', encoding="utf-8") as file:
+                    file.write(f'{func_data}\n')
+                    file.write(f"{'-' * 80}\n")
 
-            print(func_data)
-            print(time_work)
-            return result
+            else:
+                print(func_data)
+
+            if flag:
+                return func(*args, **kwargs)
+            else:
+                raise
         return inner
     return wrapper
 
 
-@log(filename='data')
+
+@log(filename='data.txt')
 def example(*nums):
-    return [x for x in nums if x % 2 == 0]
+    """Функция передачи данных"""
+    raise ValueError('Сгенерированная ошибка')
 
-example(2, 4, 5, 6, 7)
-
+example(2, 3, 4, 5)
