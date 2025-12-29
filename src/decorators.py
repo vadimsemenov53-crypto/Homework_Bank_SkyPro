@@ -2,7 +2,7 @@ from time import time
 from functools import wraps
 
 
-def log(filename):
+def log(filename = ''):
     def wrapper(func):
         @wraps(func)
         def inner(*args, **kwargs):
@@ -10,19 +10,32 @@ def log(filename):
             result = func(*args, **kwargs)
             end_time = time()
 
-            print(f'Функция: {func.__name__}, вызвана с аргументами {args}, и клюевыми аргументами {kwargs}.'
-                  f'Результат: {result}')
-            print(f'Время работы = {end_time - start_time:.6f}')
-            print(f'Переданный файл для записи -> {filename}')
+            func_data = f'''Функция: {func.__name__}, вызвана с аргументами {args}, и клюевыми аргументами {kwargs}.
+            Результат: {result}'''
+            time_work = f'Время работы = {end_time - start_time:.6f}'
 
-            return result
+            if filename:
+                if type(filename) == str:
+                    file_record = filename + '.txt'
+                    print(f'Переданный файл для записи -> {file_record}')
+
+                    with open(file_record, 'a', encoding="utf-8") as file:
+                        file.write(func_data)
+                        file.write(time_work)
+
+                else:
+                    raise TypeError('Передан неверный тип данный (отличный от "str")')
+            else:
+                print(func_data)
+                print(time_work)
+                return result
         return inner
     return wrapper
 
 
-@log('result_decorators')
+@log(filename='data')
 def example(*nums):
     return [x for x in nums if x % 2 == 0]
 
-example(10, 10, 5, 6, 7)
+example(2, 4, 5, 6, 7)
 
