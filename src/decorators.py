@@ -10,6 +10,7 @@ def log(filename: str = "") -> Callable[..., Any]:
         def inner(*args: Any, **kwargs: Any) -> Any:
             start_time = time()
             result = None
+            error_name = None
 
             try:
                 result = func(*args, **kwargs)
@@ -27,6 +28,7 @@ def log(filename: str = "") -> Callable[..., Any]:
 Тип ошибки: {type(error).__name__}
 Время до ошибки = {end_time - start_time:.6f}"""
                 flag = False
+                error_name = error
 
             if filename:
                 if not isinstance(filename, str):
@@ -46,7 +48,7 @@ def log(filename: str = "") -> Callable[..., Any]:
             if flag:
                 return result
             else:
-                raise
+                raise error_name
 
         return inner
 
