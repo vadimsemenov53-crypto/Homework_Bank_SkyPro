@@ -11,7 +11,7 @@ def log(filename = ''):
             end_time = time()
 
             func_data = f'''Функция: {func.__name__}, вызвана с аргументами {args}, и клюевыми аргументами {kwargs}.
-            Результат: {result}'''
+Результат: {result}'''
             time_work = f'Время работы = {end_time - start_time:.6f}'
 
             if filename:
@@ -20,15 +20,17 @@ def log(filename = ''):
                     print(f'Переданный файл для записи -> {file_record}')
 
                     with open(file_record, 'a', encoding="utf-8") as file:
-                        file.write(func_data)
-                        file.write(time_work)
+                        file.write(f'{func_data}\n')
+                        file.write(f'{time_work}\n')
+                        file.write(f"{'-' * 80}\n")
+                        return result
 
                 else:
                     raise TypeError('Передан неверный тип данный (отличный от "str")')
-            else:
-                print(func_data)
-                print(time_work)
-                return result
+
+            print(func_data)
+            print(time_work)
+            return result
         return inner
     return wrapper
 
