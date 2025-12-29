@@ -38,3 +38,30 @@ def test_exception_output(capsys):
     assert 'Вызвана с аргументами (10, 0), и ключевыми аргументами {}.' in captured.out
     assert 'Тип ошибки: ZeroDivisionError' in captured.out
     assert 'Время до ошибки =' in captured.out
+
+
+def test_write_to_file(tmp_path):
+    test_file = tmp_path/'log.txt'
+
+    @log(filename=str(test_file))
+    def write_to_file(*args):
+        return sum(args)
+
+    result = write_to_file(1, 2, 3, 4)
+    assert result == 10
+
+    content = test_file.read_text()
+    assert 'Функция: write_to_file' in content
+    assert 'Вызвана с аргументами (1, 2, 3, 4), и ключевыми аргументами {}' in content
+    assert 'Результат: 10' in content
+    assert 'Время работы =' in content
+    assert '---------' in content
+
+
+def test_filename_error_type():
+    @log(filename=123)
+    def say_hello():
+        return 'Hello'
+
+    with pytest.raises(TypeError):
+        say_hello()
