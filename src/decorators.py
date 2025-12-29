@@ -1,5 +1,6 @@
 from time import time
 from functools import wraps
+import os
 
 
 def log(filename = ''):
@@ -30,7 +31,9 @@ def log(filename = ''):
 
                 print(f'Данные записаны в файл -> {filename}')
 
-                with open(filename, 'a', encoding="utf-8") as file:
+                path_data = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data')
+                path_full = os.path.join(path_data, filename)
+                with open(path_full, 'a', encoding="utf-8") as file:
                     file.write(f'{func_data}\n')
                     file.write(f"{'-' * 80}\n")
 
@@ -46,9 +49,9 @@ def log(filename = ''):
 
 
 
-@log(filename='data.txt')
+@log()
 def example(*nums):
     """Функция передачи данных"""
-    raise ValueError('Сгенерированная ошибка')
+    return nums
 
-example(2, 3, 4, 5)
+gen = example([i for i in range(10)])
