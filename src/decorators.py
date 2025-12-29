@@ -10,7 +10,6 @@ def log(filename: str = "") -> Callable[..., Any]:
         def inner(*args: Any, **kwargs: Any) -> Any:
             start_time = time()
             result = None
-            error_name = None
 
             try:
                 result = func(*args, **kwargs)
