@@ -4,7 +4,19 @@ from time import time
 from typing import Any, Callable
 
 
-def log(filename: str = "") -> Callable[..., Any]:
+def log(filename: str | None = None) -> Callable[..., Any]:
+    """
+    Декоратор для логирования вызовов функций.
+
+    Логирует:
+    - имя функции;
+    - позиционные и именованные аргументы;
+    - результат выполнения или тип ошибки;
+    - время выполнения.
+
+    Если filename указан — лог записывается в файл,
+    иначе выводится в консоль.
+    """
     def wrapper(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
         def inner(*args: Any, **kwargs: Any) -> Any:
