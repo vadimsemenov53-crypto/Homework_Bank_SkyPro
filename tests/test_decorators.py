@@ -50,7 +50,7 @@ def test_write_to_file(tmp_path):
     result = write_to_file(1, 2, 3, 4)
     assert result == 10
 
-    content = test_file.read_text()
+    content = test_file.read_text(encoding="utf-8")
     assert "Функция: write_to_file" in content
     assert "Вызвана с аргументами (1, 2, 3, 4), и ключевыми аргументами {}" in content
     assert "Результат: 10" in content
