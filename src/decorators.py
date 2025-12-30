@@ -17,6 +17,7 @@ def log(filename: str | None = None) -> Callable[..., Any]:
     Если filename указан — лог записывается в файл,
     иначе выводится в консоль.
     """
+
     def wrapper(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
         def inner(*args: Any, **kwargs: Any) -> Any:
