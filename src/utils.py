@@ -26,7 +26,7 @@ def get_operations(path_to_file: str) -> list[dict[str, Any]]:
     '/Users/vadimsemenov/PycharmProjects/Homework_Bank_SkyPro/data/operations.json'"""
 
     try:
-        logger.info(f'Открываем переданный файл: {path_to_file}')
+        logger.info(f"Открываем переданный файл: {path_to_file}")
         with open(path_to_file, encoding="utf-8") as operations_file:
             try:
                 logger.info("Декодируем переданные данные")
