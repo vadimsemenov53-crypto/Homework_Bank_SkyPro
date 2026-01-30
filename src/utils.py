@@ -2,6 +2,7 @@ import json
 import logging
 import os
 from json import JSONDecodeError
+from typing import Any
 
 logs_path = os.path.join(os.path.dirname(__file__), "..", "logs")
 os.makedirs(logs_path, exist_ok=True)  # создаем папку автоматически, если она есть не падаем в ошибку
@@ -18,7 +19,7 @@ if not logger.handlers:  # исключаем дублирование хенд�
     logger.addHandler(file_handler)
 
 
-def get_operations(path_to_file: str) -> list[dict]:
+def get_operations(path_to_file: str) -> list[dict[str, Any]]:
     """Функция принимает путь до файла: {path} (файл с расширением 'json') с банковскими операция
     и возвращает список словарей банковских операций.
     Пример пути ->
