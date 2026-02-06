@@ -24,6 +24,7 @@
 ## 6. Работа с JSON-файлами;
 ## 7. Конвертирование через API (Exchange Rates Data API);
 ## 8. В проекте настроено логирование для модулей masks и utils.
+## 9. Работа с файлами CSV и Excel
 
 #  🧩 Использование:
 ### - безопасного отображения платёжных реквизитов;
@@ -36,6 +37,7 @@
 ### - чтение JSON-файлов с банковскими транзакциями;
 ### - принимать транзакции в валюте и перевод в РУБ;
 ### - возможность отслеживания поведения программы по логам.
+### - возможность считывания финансовых операций из CSV и Excel
 
 ## 📦 Установка и запуск
 
@@ -50,7 +52,7 @@
 ### 4. Запуск тестов
 ### ```pytest```
 #### Проверка покрытия кода:
-```pytest --cov=src --cov-report=term-missing```
+```pytest --cov --cov-report=term-missing```
 
 # 🔁 Примеры работы виджета:
 ```
@@ -178,6 +180,28 @@ print(amount_rub)
 2026-01-30 12:53:51,654 - utils - INFO - Декодируем переданные данные
 2026-01-30 12:53:51,654 - utils - INFO - Возвращаем полученный список банковских операций. Успешное завершение работы.
 ```
+## 📄 Чтением данных из CSV и Excel файлов
+```
+# Путь до CSV-файла
+csv_file = "data/transactions.csv"
+
+# Получаем список транзакций
+transactions_csv = read_transactions_from_csv(csv_file)
+#->
+[
+{
+    "id": 650703,
+    "state": "EXECUTED",
+    "date": "2023-09-05T11:30:32Z",
+    "amount": 16210,
+    "currency_name": "Sol",
+    "currency_code": "PEN",
+    "from": "Счет 58803664561298323391",
+    "to": "Счет 39745660563456619397",
+    "description": "Перевод организации"
+}
+]
+```
 
 
 # 🧪 Тестирование
@@ -195,27 +219,43 @@ print(amount_rub)
 - проверка обработки некорректного filename
 - проверка, обработка пустых и некорректных файлов JSON
 - обработка API-статус кодов и отсутствие ключей
+- csv/excel - Пустой файл → возвращается пустой список
+- csv/excel - Файл не найден → возвращается пустой список
+- csv/excel - Некорректный формат данных → возвращается пустой список
 
 ### 🛠 Запуск тестов
 ```
 
 pytest
 
-pytest --cov=src --cov-report=term-missing
+pytest --cov --cov-report=term-missing
 
 #-
 ____ coverage: platform darwin, python 3.14.0-final-0 ____
 
 Name                Stmts   Miss  Cover   Missing
 -------------------------------------------------
-src/__init__.py         0      0   100%
-src/decorators.py      35      0   100%
-src/generators.py      18      0   100%
-src/masks.py           10      0   100%
-src/processing.py      12      0   100%
-src/utils.py           16      0   100%
-src/widget.py          27      0   100%
--------------------------------------------------
-TOTAL                 118      0   100%
+external_api.py                 19      0   100%
+pandas_utils.py                 23      0   100%
+src/__init__.py                  0      0   100%
+src/decorators.py               35      0   100%
+src/generators.py               18      0   100%
+src/masks.py                    35      0   100%
+src/processing.py               12      0   100%
+src/utils.py                    36      0   100%
+src/widget.py                   27      0   100%
+tests/__init__.py                0      0   100%
+tests/conftest.py               36      0   100%
+tests/test_decorators.py        48      0   100%
+tests/test_external_api.py      23      0   100%
+tests/test_generators.py        86      0   100%
+tests/test_main.py               6      0   100%
+tests/test_masks.py             24      0   100%
+tests/test_pandas_utils.py      46      0   100%
+tests/test_processing.py        24      0   100%
+tests/test_utils.py             27      0   100%
+tests/test_widget.py            36      0   100%
+----------------------------------------------------------
+TOTAL                          561      0   100%
 ```
 ### Покрытие тестами = 100%
