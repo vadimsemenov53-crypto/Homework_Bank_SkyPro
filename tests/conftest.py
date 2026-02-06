@@ -137,3 +137,29 @@ def transaction_data_usd():
         "from": "Maestro 1596837868705199",
         "to": "Счет 64686473678894779589",
     }
+
+
+@pytest.fixture()
+def data_for_csv_xlsx():
+    return [{
+        "id": 650703,
+        "state": "EXECUTED",
+        "date": "2023-09-05T11:30:32Z",
+        "amount": 16210,
+        "currency_name": "Sol",
+        "currency_code": "PEN",
+        "from": "Счет 58803664561298323391",
+        "to": "Счет 39745660563456619397",
+        "description": "Перевод организации"
+            },
+            {
+        "id": 650704,
+        "state": "CANCELED",
+        "date": "2023-08-12T09:15:00Z",
+        "amount": 5000,
+        "currency_name": "Рубль",
+        "currency_code": "RUB",
+        "from": "Счет 11112222333344445555",
+        "to": "Счет 99998888777766665555",
+        "description": "Отмена платежа"
+            }]
