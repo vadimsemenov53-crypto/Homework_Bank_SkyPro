@@ -12,7 +12,7 @@ def read_transactions_from_csv(path_to_file: str) -> list[dict]:
         return list_data
 
     except ValueError:
-        print("Передан не верный формат")
+        print("Передан не верный формат или битый CSV-файл")
         return []
 
     except FileNotFoundError:
@@ -31,7 +31,7 @@ def read_transactions_from_excel(path_to_file: str) -> list[dict]:
         return list_data
 
     except ValueError:
-        print("Передан не верный формат")
+        print("Передан не верный формат или битый excel-файл")
         return []
 
     except FileNotFoundError:
