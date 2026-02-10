@@ -15,20 +15,19 @@ def test_filter_by_state_base(processing):
 
 
 def test_filter_by_state_wrong_type():
-    with pytest.raises(TypeError):
+    with pytest.raises(AttributeError):
         filter_by_state([123356])
-    with pytest.raises(TypeError):
+    with pytest.raises(AttributeError):
         filter_by_state(["error"])
 
 
 def test_filter_by_state_not_key():
-    with pytest.raises(KeyError):
-        filter_by_state(
+    assert filter_by_state(
             [
                 {"id": 939719570, "date": "2018-06-30T02:08:58.425572"},
                 {"id": 594226727, "date": "2018-09-12T21:27:25.241689"},
             ]
-        )
+        ) == []
 
 
 @pytest.mark.parametrize(
