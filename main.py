@@ -6,7 +6,7 @@ from src.widget import mask_account_card
 
 VALID_STATUSES = ["EXECUTED", "CANCELED", "PENDING"]
 
-def main() -> None | str:
+def main() -> None:
     print("""Программа: Привет! Добро пожаловать в программу работы 
 с банковскими транзакциями. 
 Выберите необходимый пункт меню:
@@ -37,7 +37,8 @@ def main() -> None | str:
         data_operations = read_transactions_from_excel(path_file)
 
     if not data_operations:
-        return "Программа: По заданному пути файл не найден."
+        print("Программа: По заданному пути файл не найден.")
+        return
 
     print("""Программа: Введите статус, по которому необходимо выполнить фильтрацию. 
     Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING
@@ -88,13 +89,13 @@ def main() -> None | str:
 
     for transaction in result_filter:
         if transaction['description'] == 'Открытие вклада':
-            print(f'{transaction['date'][:10]} {transaction['description']}')
-            print(f'{mask_account_card(transaction["to"])}')
-            print(f'Сумма: {transaction["operationAmount"]["amount"]} {transaction["operationAmount"]["currency"]["name"]}')
+            print(f"{transaction['date'][:10]} {transaction['description']}")
+            print(f"{mask_account_card(transaction['to'])}")
+            print(f"Сумма: {transaction['operationAmount']['amount']} {transaction['operationAmount']['currency']['name']}")
         else:
-            print(f'{transaction['date'][:10]} {transaction['description']}')
-            print(f'{mask_account_card(transaction["from"])} -> {mask_account_card(transaction["to"])}')
-            print(f'Сумма: {transaction["operationAmount"]["amount"]} {transaction["operationAmount"]["currency"]["name"]}')
+            print(f"{transaction['date'][:10]} {transaction['description']}")
+            print(f"{mask_account_card(transaction['from'])} -> {mask_account_card(transaction['to'])}")
+            print(f"Сумма: {transaction['operationAmount']['amount']} {transaction['operationAmount']['currency']['name']}")
 
 
 
