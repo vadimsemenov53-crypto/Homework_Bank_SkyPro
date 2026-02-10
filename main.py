@@ -1,4 +1,3 @@
-import re
 from src.utils import get_operations
 from pandas_utils import read_transactions_from_csv, read_transactions_from_excel
 from src.processing import filter_by_state, sort_by_date
@@ -51,19 +50,19 @@ def main():
 
     result_filter = filter_by_state(data_operations, status_filter)
 
-    # pattern = re.compile(status_filter, re.IGNORECASE)
-    #
-    # result_filter = []
-    # for operation in data_operations:
-    #     state = operation.get("state", "")
-    #
-    #     if pattern.search(state):
-    #         result_filter.append(operation)
+    print("Программа: Отсортировать операции по дате? Да/Нет")
+    choice_date = str(input('Пользователь : ').upper().strip())
+    if choice_date == 'ДА':
+        print("Программа: Отсортировать по возрастанию? Да/Нет")
 
+        choice_reverse = str(input('Пользователь : ')).upper().strip()
 
-    # print("Программа: Отсортировать операции по дате? Да/Нет")
-    # choice_date = input('Пользователь : ').upper().strip()
-    # if choice_date == 'ДА':
+        if choice_reverse == 'ДА':
+            result_filter = sort_by_date(result_filter, False)
+        elif choice_reverse == 'НЕТ':
+            result_filter = sort_by_date(result_filter, True)
+
+    print("Программа: Выводить только рублевые транзакции? Да/Нет")
 
     return result_filter
 
