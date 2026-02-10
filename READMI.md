@@ -25,6 +25,7 @@
 ## 7. Конвертирование через API (Exchange Rates Data API);
 ## 8. В проекте настроено логирование для модулей masks и utils.
 ## 9. Работа с файлами CSV и Excel
+## 10. Функция main предоставляет пользовательский интерфейс в соответствии с условиями задания.
 
 #  🧩 Использование:
 ### - безопасного отображения платёжных реквизитов;
@@ -49,7 +50,9 @@
 ### `git clone git@github.com:vadimsemenov53-crypto/Homework_Bank_SkyPro.git`
 ### 3. Установка зависимостей
 ### ```poetry install```
-### 4. Запуск тестов
+### 4. Запуск программы
+### ```python3 main.py```
+### 5. Запуск тестов
 ### ```pytest```
 #### Проверка покрытия кода:
 ```pytest --cov --cov-report=term-missing```
@@ -241,21 +244,23 @@ src/__init__.py                  0      0   100%
 src/decorators.py               35      0   100%
 src/generators.py               18      0   100%
 src/masks.py                    35      0   100%
+src/operations.py               21      1    95%   18
 src/processing.py               12      0   100%
 src/utils.py                    36      0   100%
 src/widget.py                   27      0   100%
 tests/__init__.py                0      0   100%
-tests/conftest.py               36      0   100%
+tests/conftest.py               42      0   100%
 tests/test_decorators.py        48      0   100%
 tests/test_external_api.py      23      0   100%
 tests/test_generators.py        86      0   100%
 tests/test_main.py               6      0   100%
 tests/test_masks.py             24      0   100%
+tests/test_operations.py        22      0   100%
 tests/test_pandas_utils.py      46      0   100%
-tests/test_processing.py        24      0   100%
+tests/test_processing.py        23      0   100%
 tests/test_utils.py             27      0   100%
 tests/test_widget.py            36      0   100%
 ----------------------------------------------------------
-TOTAL                          561      0   100%
+TOTAL                          609      1    99%
 ```
 ### Покрытие тестами = 100%
